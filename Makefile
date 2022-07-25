@@ -74,6 +74,7 @@ CONFIG_RTW_GRO = y
 CONFIG_RTW_NETIF_SG = y
 CONFIG_RTW_IPCAM_APPLICATION = n
 CONFIG_RTW_REPEATER_SON = n
+# RTW_WIFI_HAL Required for Android to activate OS Controls
 CONFIG_RTW_WIFI_HAL = y
 ########################## Debug ###########################
 CONFIG_RTW_DEBUG = y
@@ -1364,8 +1365,8 @@ SUBARCH := $(shell uname -m | sed -e "s/armv.*/arm/" | sed -e "s/aarch64/arm64/"
 ARCH := i386
 # Above: Hard-coded Architecture to 32-bit, switch with $(SUBARCH) if your case is different
 
-CROSS_COMPILE := /mnt/HOME/herb/Downloads/android-x86/prebuilts/gcc/linux-x86/x86/x86_64-linux-android-4.9/bin/x86_64-linux-android-
-KSRC := /mnt/HOME/herb/Downloads/android-x86/out/target/product/x86/obj/kernel
+CROSS_COMPILE := <location>/android-x86/prebuilts/gcc/linux-x86/x86/x86_64-linux-android-4.9/bin/x86_64-linux-android-
+KSRC := <location>/android-x86/out/target/product/x86/obj/kernel
 MODULE_NAME := 8821cu
 endif
 
