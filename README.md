@@ -29,7 +29,7 @@ git clone https://github.com/herb2k/8821CU-android.git
 ```
 
 ### Define the Cross-Compiler
-Under the section ifeq ($(CONFIG_PLATFORM_ANDROID_X86), y)
+Under the section `ifeq ($(CONFIG_PLATFORM_ANDROID_X86), y)`
 
 Update CROSS_COMPILe:= with the location (actually prefix) of the cross-compiler for your version of Android
 ```
@@ -72,7 +72,7 @@ dmesg | grep RTW
 1. Create a folder called 8821cu and copy the 8821cu.ko file to that folder.
 2. Copy the folder containing the 8821cu.ko file to a location on your device which is persistent and available at boot. You may need to rebuild your kernel or bootimg if using a real Android device (not required on Andoroid-x86)
 
-I was able to use '/lib/modules/4.19.195-android-x86-22805-g0676905e8791/kernel/drivers/net/wireless/realtek/8821cu'
+I was able to use `/lib/modules/4.19.195-android-x86-22805-g0676905e8791/kernel/drivers/net/wireless/realtek/8821cu` as the path to store the 8821cu.ko file.
 
 ### Load Driver at Boot (OPTION 1)
 Android does not load loadable kernel objects by default after running insmod.
@@ -94,13 +94,14 @@ This option loads the driver much earlier in the boot process, and there is no d
 
 NOTE: You will need your USB device vid and pid - eg: '0BDA:C820'. You can get this by running `lsusb`
 
-2. Update modules.order: Add `kernel/drivers/net/wireless/realtek/rtl8821c/8821cu.ko` to `/system/lib/modules/4.19.195-android-x86-22805-g0676905e8791/modules.order`
+1. Update modules.order: Add `kernel/drivers/net/wireless/realtek/rtl8821c/8821cu.ko` to `/system/lib/modules/4.19.195-android-x86-22805-g0676905e8791/modules.order`
 
-3. Update modules.alias: Add the following strings (replacing the characters following "v" and "p" with your device's vid and pid.
+2. Update modules.alias: Add the following strings (replacing the characters following "v" and "p" with your device's vid and pid.
+The first entry is probably unnecesssary but I added the folder name just incase Andoid searched base off that.
 ```
  alias usb:v0BDApC820d*dc*dsc*dp*ic*isc*ip*in* rtl8821c
  alias usb:v0BDApC820d*dc*dsc*dp*ic*isc*ip*in* rtl8821cu
 ```
 To file `/system/lib/modules/4.19.195-android-x86-22805-g0676905e8791/modules.alias`
 
-4. Update modules.dep: Add `kernel/drivers/net/wireless/realtek/rtl8821c/8821cu.ko: kernel/net/mac80211/mac80211.ko kernel/net/wireless/cfg80211.ko` to `/system/lib/modules/4.19.195-android-x86-22805-g0676905e8791/modules.dep`
+3. Update modules.dep: Add `kernel/drivers/net/wireless/realtek/rtl8821c/8821cu.ko: kernel/net/mac80211/mac80211.ko kernel/net/wireless/cfg80211.ko` to `/system/lib/modules/4.19.195-android-x86-22805-g0676905e8791/modules.dep`
